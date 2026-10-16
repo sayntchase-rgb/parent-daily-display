@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="$5K Dashboard">
+<title>$200 → $5K Houston Dashboard</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#0b0d10;--panel:#151922;--panel2:#1c2230;--text:#eef2f7;--muted:#9aa5b1;--line:#2b3443;--accent:#6da7ff;--good:#77d19a;--bad:#ef7f7f}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1400px;margin:auto;padding:18px} h1{font-size:27px;margin:4px 0} .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px} .card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.card{padding:13px} .k{font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:.08em} .v{font-size:21px;font-weight:750;margin-top:5px}
+.panel{padding:15px;margin-top:14px} .progress{height:12px;background:#222a36;border-radius:99px;overflow:hidden} .progress>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--good));width:0}
+.hunts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.hunt,button{display:block;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:12px;border-radius:10px;text-decoration:none;text-align:center;font-size:13px}
+.hunt:hover,button:hover{border-color:var(--accent)} .toolbar{display:flex;gap:8px;flex-wrap:wrap} button{cursor:pointer}
+.tablewrap{overflow-x:auto} table{width:100%;border-collapse:collapse;font-size:12px;min-width:980px} th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted)} input{width:76px;background:#0f131a;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:7px}
+textarea{width:100%;min-height:110px;background:#0f131a;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px}
+.good{color:var(--good);font-weight:700} .bad{color:var(--bad);font-weight:700} .callout{border-left:4px solid var(--accent);padding:12px;background:var(--panel2);border-radius:8px}
+.install{display:none;margin-top:10px;background:#19314d;border-color:#315983}
+@media(max-width:760px){
+ .wrap{padding:12px} h1{font-size:23px} .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .hunts{grid-template-columns:1fr 1fr} .v{font-size:19px} .panel{padding:12px}
+}
+@media(max-width:430px){.hunts{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="wrap">
+<h1>$200 → $5K Houston</h1>
+<div class="sub">Operating dashboard • mobile/PWA build • data stays on this device</div>
+
+<div class="cards">
+<div class="card"><div class="k">Capital</div><div class="v">$200</div></div>
+<div class="card"><div class="k">Target</div><div class="v">$5,000</div></div>
+<div class="card"><div class="k">Revenue</div><div class="v" id="revTotal">$0</div></div>
+<div class="card"><div class="k">Profit</div><div class="v" id="profitTotal">$0</div></div>
+<div class="card"><div class="k">Jobs</div><div class="v" id="jobsTotal">0</div></div>
+<div class="card"><div class="k">Avg Ticket</div><div class="v" id="avgTicket">$0</div></div>
+<div class="card"><div class="k">Expenses</div><div class="v" id="expTotal">$0</div></div>
+<div class="card"><div class="k">ROI</div><div class="v" id="roiTotal">0%</div></div>
+</div>
+
+<button id="installBtn" class="install">Install $5K Dashboard on this phone</button>
+
+<div class="panel">
+<div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:7px"><b>$5K Progress</b><span id="progressText">$0 / $5,000</span></div>
+<div class="progress"><div id="progressBar"></div></div>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0">Lead Hunt</h2>
+<div class="callout" style="margin-bottom:12px">Use these as live search launchers. Individual public listings change too quickly to hard-code safely.</div>
+<div class="hunts"><a class="hunt" href="https://houston.craigslist.org/search/ggg?query=moving" target="_blank" rel="noopener">Craigslist: Moving gigs</a>
+<a class="hunt" href="https://houston.craigslist.org/search/ggg?query=cleaning" target="_blank" rel="noopener">Craigslist: Cleaning gigs</a>
+<a class="hunt" href="https://houston.craigslist.org/search/ggg?query=assembly" target="_blank" rel="noopener">Craigslist: Assembly gigs</a>
+<a class="hunt" href="https://houston.craigslist.org/search/ggg?query=junk" target="_blank" rel="noopener">Craigslist: Junk/Cleanout gigs</a>
+<a class="hunt" href="https://houston.craigslist.org/search/ggg?query=pressure%20washing" target="_blank" rel="noopener">Craigslist: Pressure washing</a>
+<a class="hunt" href="https://houston.craigslist.org/search/ggg?query=detailing" target="_blank" rel="noopener">Craigslist: Detailing</a>
+<a class="hunt" href="https://www.facebook.com/marketplace/" target="_blank" rel="noopener">Facebook Marketplace</a>
+<a class="hunt" href="https://nextdoor.com/" target="_blank" rel="noopener">Nextdoor</a>
+<a class="hunt" href="https://www.thumbtack.com/" target="_blank" rel="noopener">Thumbtack</a>
+<a class="hunt" href="https://www.taskrabbit.com/locations/houston/help-moving" target="_blank" rel="noopener">Taskrabbit Houston Moving</a>
+<a class="hunt" href="https://www.uhaul.com/MovingHelp/" target="_blank" rel="noopener">U-Haul Moving Help</a>
+<a class="hunt" href="https://offerup.com/" target="_blank" rel="noopener">OfferUp</a></div>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0">Channel Performance</h2>
+<div class="toolbar" style="margin-bottom:10px">
+<button onclick="saveNow()">Save</button><button onclick="exportCSV()">Export CSV</button><button onclick="resetData()">Reset</button>
+</div>
+<div class="tablewrap"><table id="channelTable">
+<thead><tr><th>Channel</th><th>Demand</th><th>Leads</th><th>Convos</th><th>Quotes</th><th>Jobs</th><th>Revenue</th><th>Expenses</th><th>Profit</th><th>Lead→Job</th><th>ROI</th></tr></thead>
+<tbody><tr data-row="0"><td><b>Facebook Marketplace</b></td><td>95/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="1"><td><b>Craigslist Houston</b></td><td>92/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="2"><td><b>Nextdoor</b></td><td>89/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="3"><td><b>Thumbtack</b></td><td>88/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="4"><td><b>Taskrabbit</b></td><td>86/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="5"><td><b>U-Haul Moving Help</b></td><td>84/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="6"><td><b>OfferUp</b></td><td>72/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="7"><td><b>DoorDash</b></td><td>88/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr>
+<tr data-row="8"><td><b>Uber Eats</b></td><td>86/100</td><td><input type="number" min="0" data-field="leads"></td><td><input type="number" min="0" data-field="convos"></td><td><input type="number" min="0" data-field="quotes"></td><td><input type="number" min="0" data-field="jobs"></td><td><input type="number" min="0" step="1" data-field="revenue"></td><td><input type="number" min="0" step="1" data-field="expenses"></td><td data-calc="profit">$0</td><td data-calc="conversion">0%</td><td data-calc="roi">0%</td></tr></tbody>
+</table></div>
+</div>
+
+<div class="panel"><h2 style="margin-top:0">Daily Targets</h2><div class="cards"><div class="card"><div class="k">Leads</div><div class="v">50–100</div></div><div class="card"><div class="k">Conversations</div><div class="v">10–20</div></div><div class="card"><div class="k">Quotes</div><div class="v">5–10</div></div><div class="card"><div class="k">Revenue / Day</div><div class="v">$714+</div></div></div></div>
+<div class="panel"><h2 style="margin-top:0">Primary Offer</h2><div class="callout"><b>Move-Out / Apartment Reset</b><br><br>Labor-only loading/unloading + furniture assembly/disassembly + cleaning + cleanout coordination.<br><br><b>Rule:</b> sell first; spend second.</div></div>
+<div class="panel"><h2 style="margin-top:0">Notes</h2><textarea id="notes" placeholder="Record leads, quotes, objections, pricing, results, mistakes, lessons learned, and next actions..."></textarea></div>
+</div>
+<script>
+const KEY='houston_200_to_5000_dashboard_v2';
+const names=["Facebook Marketplace","Craigslist Houston","Nextdoor","Thumbtack","Taskrabbit","U-Haul Moving Help","OfferUp","DoorDash","Uber Eats"];
+function num(v){const n=parseFloat(v);return Number.isFinite(n)?n:0} function money(v){return '$'+Math.round(v).toLocaleString()} function pct(v){return (Math.round(v*10)/10).toLocaleString()+'%'}
+function collect(){return {rows:[...document.querySelectorAll('#channelTable tbody tr')].map(r=>{const o={};r.querySelectorAll('input[data-field]').forEach(i=>o[i.dataset.field]=num(i.value));return o}),notes:document.getElementById('notes').value}}
+function saveNow(){localStorage.setItem(KEY,JSON.stringify(collect()));update()}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');if(Array.isArray(d.rows))document.querySelectorAll('#channelTable tbody tr').forEach((r,idx)=>{const x=d.rows[idx]||{};r.querySelectorAll('input[data-field]').forEach(i=>{if(x[i.dataset.field]!==undefined)i.value=x[i.dataset.field]})});if(typeof d.notes==='string')document.getElementById('notes').value=d.notes}catch(e){}update()}
+function update(){let revT=0,expT=0,jobsT=0;document.querySelectorAll('#channelTable tbody tr').forEach(r=>{const get=f=>num(r.querySelector(`[data-field="${f}"]`).value);const leads=get('leads'),jobs=get('jobs'),rev=get('revenue'),exp=get('expenses'),profit=rev-exp;const conv=leads>0?jobs/leads*100:0,roi=exp>0?profit/exp*100:(rev>0?Infinity:0);const pc=r.querySelector('[data-calc="profit"]');pc.textContent=money(profit);pc.className=profit>=0?'good':'bad';r.querySelector('[data-calc="conversion"]').textContent=pct(conv);r.querySelector('[data-calc="roi"]').textContent=roi===Infinity?'∞':pct(roi);revT+=rev;expT+=exp;jobsT+=jobs});const profit=revT-expT,avg=jobsT>0?revT/jobsT:0,roi=expT>0?profit/expT*100:(revT>0?Infinity:0);document.getElementById('revTotal').textContent=money(revT);document.getElementById('expTotal').textContent=money(expT);document.getElementById('profitTotal').textContent=money(profit);document.getElementById('jobsTotal').textContent=jobsT;document.getElementById('avgTicket').textContent=money(avg);document.getElementById('roiTotal').textContent=roi===Infinity?'∞':pct(roi);const p=Math.max(0,Math.min(100,revT/5000*100));document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=money(revT)+' / $5,000 ('+pct(p)+')';localStorage.setItem(KEY,JSON.stringify(collect()))}
+function resetData(){if(confirm('Reset all tracking data?')){localStorage.removeItem(KEY);document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('notes').value='';update()}}
+function exportCSV(){const out=[['Channel','Leads','Conversations','Quotes','Jobs','Revenue','Expenses','Profit','Lead-to-Job %','ROI %']];document.querySelectorAll('#channelTable tbody tr').forEach((r,idx)=>{const g=f=>num(r.querySelector(`[data-field="${f}"]`).value);const l=g('leads'),j=g('jobs'),rv=g('revenue'),e=g('expenses'),pr=rv-e;out.push([names[idx],l,g('convos'),g('quotes'),j,rv,e,pr,l?j/l*100:0,e?pr/e*100:''])});const csv=out.map(row=>row.map(x=>`"${String(x).replaceAll('"','""')}"`).join(',')).join('\n');const b=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Houston_5K_Dashboard.csv';a.click();URL.revokeObjectURL(a.href)}
+document.addEventListener('input',e=>{if(e.target.matches('input[data-field],#notes'))update()});if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='block'});document.getElementById('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById('installBtn').style.display='none'});load();
+</script>
+</body></html>
